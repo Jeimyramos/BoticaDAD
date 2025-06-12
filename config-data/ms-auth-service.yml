@@ -1,29 +1,27 @@
-server:
+server:                                # Inicio de configuración del servidor Spring Boot
+  port: ${PORT:${SERVERS_PORT:0}}     # Usa la variable PORT, si no existe usa SERVERS_PORT, y si tampoco, usa el puerto 0 (aleatorio)
 
-  port: ${PORT:${SERVERS_PORT:0}}
+spring:                                # Inicio de configuración general de Spring
+  jpa:                                 # Configuraciones de JPA (persistencia con base de datos)
+    hibernate.ddl-auto: update         # Actualiza automáticamente las tablas si cambian las clases (sin borrar datos)
+    generate-ddl: true                 # Genera automáticamente el esquema de la base de datos (DDL)
+    show-sql: true                     # Muestra las consultas SQL en la consola mientras se ejecuta la app
+  datasource:                          # Configuración de la conexión a la base de datos
+    driverClassName: com.mysql.cj.jdbc.Driver   # Driver para conectar a una base de datos MySQL
+    url: jdbc:mysql://localhost:3306/ms_auth    # URL de conexión a la base de datos llamada "ms_auth" en el localhost
+    username: root                     # Usuario para ingresar a la base de datos (aquí es 'root')
+    password:                          # Contraseña para la base de datos (en blanco por ahora)
 
-spring:
-  jpa:
-    hibernate.ddl-auto: update
-    generate-ddl: true
-    show-sql: true
-  datasource:
-    driverClassName: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/ms_auth
-    username: root
-    password:
+  Application:                         # Configuración personalizada dentro de 'spring'
+    name: ms-auth-service              # Nombre del microservicio, se usa para identificarlo en Eureka y Config Server
 
-  Application:
-    name: ms-auth-service
-
-eureka:
-  client:
-    serviceUrl:
-      #defaultZone: http://localhost:8090/eureka
-      defaultZone: ${EUREKA_URI:http://localhost:8090/eureka}
-  instance:
-    #hostname: localhost
+eureka:                                # Configuración del servicio Eureka (registro de microservicios)
+  client:                              # Cliente Eureka (esta app se registrará en Eureka)
+    serviceUrl:                        # URL del servidor Eureka al que se conecta
+      defaultZone: ${EUREKA_URI:http://localhost:8090/eureka}  # Si existe la variable EUREKA_URI la usa, sino usa localhost:8090/eureka
+  instance:                            # Configuración de la instancia del microservicio
     instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+    # ID único de esta instancia para evitar conflictos; combina nombre, id o un valor aleatorio
 
-jwt:
-  secret: secret
+jwt:                                   # Configuración para JWT (tokens de autenticación)
+  secret: secret                       # Clave secreta que se usará para firmar y validar los tokens JWT
