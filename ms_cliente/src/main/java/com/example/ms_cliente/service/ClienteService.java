@@ -1,12 +1,13 @@
-package com.example.ms_cliente.service;
+package com.botica.mscliente.service;
 
-import com.example.ms_cliente.dto.ClienteDto;
-import com.example.ms_cliente.dto.DniResponse;
-import com.example.ms_cliente.dto.RucResponse;
-import com.example.ms_cliente.dto.ResponseDto;
+import com.botica.mscliente.dto.ClienteDto;
+
+import java.util.List;
 
 public interface ClienteService {
-    ResponseDto<ClienteDto> create(ClienteDto dto);
-    ResponseDto<ClienteDto> getById(Long id);
-    // ya no hay fetch automático: se reciben datos por teclado
+    List<ClienteDto> obtenerTodos();
+    ClienteDto obtenerPorId(Long id);
+    ClienteDto crearCliente(ClienteDto clienteDto);
+    ClienteDto actualizarCliente(Long id, ClienteDto clienteDto);
+    void eliminarCliente(Long id);
 }

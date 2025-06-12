@@ -1,7 +1,6 @@
 package com.example.ms_cliente.service.impl;
 
 import com.example.ms_cliente.dto.ClienteDto;
-import com.example.ms_cliente.dto.ResponseDto;
 import com.example.ms_cliente.entity.Cliente;
 import com.example.ms_cliente.repository.ClienteRepository;
 import com.example.ms_cliente.service.ClienteService;
@@ -13,7 +12,7 @@ public class ClienteServiceImpl implements ClienteService {
     private final ClienteRepository repo;
     private final ModelMapper mapper;
 
-    public ClienteServiceImpl(ClienteRepository repo, ModelMapper mapper) {
+    public ClienteServiceImpl(ClienteRepository repo, ModelMapper  mapper) {
         this.repo = repo;
         this.mapper = mapper;
     }
